@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('users.api.urls', namespace='users-api')),
+    path('api/rooms/', include('rooms.api.urls', namespace='rooms-api')),
+    path('api/userInfo/', include('userInfo.api.urls', namespace='userInfo-api'))
     
 ]
 if settings.DEBUG:

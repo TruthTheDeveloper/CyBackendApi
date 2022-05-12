@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'rooms',
+    'userInfo',
 
     #third party
     'rest_framework',
@@ -142,7 +143,7 @@ cloudinary.config(
   cloud_name = "di8abd9yq", 
   api_key = "747858851125755", 
   api_secret = "XMPCJ5cOJn3eFhm9SC27HoJNDGs",
-  secure = true
+  secure = True
 )
 
 

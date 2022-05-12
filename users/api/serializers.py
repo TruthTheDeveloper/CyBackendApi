@@ -10,14 +10,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from rest_framework.reverse import reverse as api_reverse
 
-def get_tokens_for_user(user):
-    refresh = RefreshToken.for_user(user)
-
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
-
 # User = get_user_model()
 
 
@@ -35,8 +27,6 @@ class UserRegisterSerializer(ModelSerializer):
             'email', 
             'username',
             'phone_number',
-            'token',
-            'slug',
             'expires',
             'message',
             'status_code',
@@ -54,12 +44,6 @@ class UserRegisterSerializer(ModelSerializer):
 
     def get_message(self, obj):
         return 'Thank you for registering. Please verify your email before continuing'
-
-    def get_token(self, obj):
-        user = obj
-        token = get_tokens_for_user(user)
-        return token
-
 
     def validate_email(self,value):
         qs = CustomUser.objects.filter(email__iexact=value)
