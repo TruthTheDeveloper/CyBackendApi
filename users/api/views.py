@@ -62,10 +62,10 @@ class AuthView(APIView):
 
 
 class RegisterAPIView(generics.CreateAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserRegisterSerializer
     # permission_classes = [AnonPermissionOnly]
-    authentication_classes = []
+    # authentication_classes = []
     permission_classes = [AnonPermissionOnly]
 
 

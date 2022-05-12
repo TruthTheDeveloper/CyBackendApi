@@ -14,9 +14,10 @@ class UserManager(BaseUserManager):
         """
         Creates and saves a User with the given email and password.
         """
+        print(extra_fields.get('phone_number'))
 
-        # if not extra_fields.get('phone_number') == 0:
-        #     raise ValueError('please input phone number')
+        if  extra_fields.get('phone_number') == 0:
+            raise ValueError('please input phone number')
 
         # print(phone_number, 'phone')
         if not email:
@@ -81,14 +82,10 @@ class CustomUser(AbstractBaseUser):
 
     
     def save(self, *args, **kwargs):
-        # self.phone_number = 134
-        print(self.phone_number, 'before') #this return None
         if not self.slug:
             self.slug = slugify(utils.rand_slug() + "-" + self.username)
         super(CustomUser, self).save(*args, **kwargs)
         print(self.phone_number, 'after') #this return None
-
-    # notice the absence of a "Password field", that is built in.
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number'] # Email & Password are required by default.

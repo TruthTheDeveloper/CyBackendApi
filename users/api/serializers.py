@@ -27,7 +27,7 @@ class UserRegisterSerializer(ModelSerializer):
     expires = SerializerMethodField(read_only=True)
     message = SerializerMethodField(read_only=True)
     status_code = SerializerMethodField(read_only=True)
-    phone_number = IntegerField()
+    # phone_number = IntegerField()
 
     class Meta:
         model =CustomUser
@@ -60,6 +60,7 @@ class UserRegisterSerializer(ModelSerializer):
         token = get_tokens_for_user(user)
         return token
 
+
     def validate_email(self,value):
         qs = CustomUser.objects.filter(email__iexact=value)
         if qs.exists():
@@ -77,7 +78,8 @@ class UserRegisterSerializer(ModelSerializer):
     def create(self, validated_data):
         user_obj = CustomUser(
             username=validated_data.get('username'),
-            email=validated_data.get('email')
+            email=validated_data.get('email'),
+            phone_number=validated_data.get('phone_number')
         )
         user_obj.set_password(validated_data.get('password'))
         user_obj.save()
