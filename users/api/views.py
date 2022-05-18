@@ -38,25 +38,21 @@ class AuthView(APIView):
         if request.user.is_authenticated:
             return Response({'detail':'You are already authenticated'}, status=400)
         data = request.data
-        print(request.data, 'data')
         email = data.get('email')
         password = data.get('password')
         user = authenticate(email=email, password=password)
-        print(user, 'user')
         qs = User.objects.filter(
             Q(username__iexact=email)|
             Q(email__iexact=email)
         ).distinct()
-        print(qs, 'qs')
         if qs.count() == 1:
             user_obj = qs.first()
-            print(user_obj)
-            message = "Successfull"
+            message = "Login Successfull"
             status_code = 200
             response = get_tokens_for_user(user, message, status_code)
             return Response(response)
         else:
-            return Response({'detail':'Invalid credentials'}, status=401)
+            return Response({'message':'email or password is incorrect', 'status':'401'}, status=401)
 
 
 
@@ -64,8 +60,6 @@ class AuthView(APIView):
 class RegisterAPIView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserRegisterSerializer
-    # permission_classes = [AnonPermissionOnly]
-    # authentication_classes = []
     permission_classes = [AnonPermissionOnly]
 
 

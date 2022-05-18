@@ -2,6 +2,7 @@ from datetime import timedelta
 
 
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'users.utils.custom_exception_handler.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -10,6 +11,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_PAGINATION_CLASS':'restconf.pagination.CyBackendApiPagination',
 }
 
 SECRET_KEY = 'django-insecure-v86^@e$&datwoc&s--2aute!t6_i=9tky%o5z&3smnhovmwk=j'

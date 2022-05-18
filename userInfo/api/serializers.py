@@ -8,9 +8,11 @@ def create_full_name(title, firstname, lastname):
 
 class UserInfoSerializer(ModelSerializer):
     full_name = SerializerMethodField(read_only=True)
+    id = SerializerMethodField(read_only=True)
     class Meta:
         model = UserInfo
         fields = [
+            'id',
             'title',
             'first_name',
             'last_name',
@@ -27,7 +29,9 @@ class UserInfoSerializer(ModelSerializer):
         ]
 
 
-    
+    def get_id(self,obj):
+        return obj.id
+
     def get_full_name(self, obj):
         fullname = create_full_name(obj.title, obj.first_name, obj.last_name)
         return fullname

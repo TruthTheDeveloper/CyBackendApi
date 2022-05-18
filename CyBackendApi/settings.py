@@ -49,10 +49,14 @@ INSTALLED_APPS = [
     #third party
     'rest_framework',
     'rest_framework_simplejwt',
-    'cloudinary'
+    'cloudinary',
+    "corsheaders",
+
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -113,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -135,6 +140,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL ="users.CustomUser"
+
+#CORS
+CORS_ALLOW_ALL_ORIGINS = True
 
 from restconf.main import *
 
